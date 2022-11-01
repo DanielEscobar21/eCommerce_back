@@ -30,3 +30,4 @@ Route::get('/products-by-category/{category_id}', [ProductController::class, 'pr
 Route::apiResource('orders', OrderController::class);
 Route::apiResource('cards', CardController::class);
 Route::get('/card_by_user/{user_id}', [CardController::class, 'cardByUser']);
+Route::delete('/destroy', [CartController::class, 'destroy']);

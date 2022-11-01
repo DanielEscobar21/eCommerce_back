@@ -82,6 +82,7 @@ class CartController extends Controller
      */
     public function destroy(Cart $cart)
     {
-        //
+        $cart->delete();
+        return (new OrderResource($cart))->additional(["message"=>"Carrito eliminada con éxito."]);
     }
 }
