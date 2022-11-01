@@ -7,5 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Payment extends Model
 {
-    use HasFactory;
+    protected $fillable = [
+        'order_number',
+        'card_id',
+        'cards',
+        'amount'
+    ];
 }
