@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\PaymentResource;
 use App\Models\Payment;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        //
+        return OrderResource::collection(Order::all()); //
     }
 
     /**
@@ -35,7 +36,7 @@ class PaymentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return (new OrderResource(Order::create($request->all())))->additional(["message"=>"Pago registrado con Ã©xito."]); //
     }
 
     /**
