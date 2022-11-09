@@ -75,4 +75,9 @@ class ProductController extends Controller
         $products = Product::where("category_id" , $category_id)->get();
         return ProductResource::collection($products);
     }
+
+    public function searchProduct(Request $request){
+        $products = Product::where("name",'ilike',$request->search."%")->get();
+        return ProductResource::collection($products);
+    }
 }
