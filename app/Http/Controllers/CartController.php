@@ -4,31 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use Illuminate\Http\Request;
+use App\Http\Resources\CartResource;
 
 class CartController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index($user_id, $product_id)
-    {
-        $cart = Carts::where("user_id" , $user_id)->get();
-        $cart = Carts::where("product_id" , $product_id)->get();
-        return CartsResource::collection($cart);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -37,7 +16,7 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return (new CartResource(Cart::create($request->all())))->additional(["message"=>"Producto agregado al carrito con éxito."]);
     }
 
     /**
@@ -48,18 +27,7 @@ class CartController extends Controller
      */
     public function show(Cart $cart)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Cart  $cart
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Cart $cart)
-    {
-        //
+        return new CartResource($cart);
     }
 
     /**
@@ -71,7 +39,8 @@ class CartController extends Controller
      */
     public function update(Request $request, Cart $cart)
     {
-        //
+        $cart->update($request->all());
+        return (new CartResource($cart))->additional(["message"=>"Carrito actualizado con éxito."]);
     }
 
     /**
@@ -82,6 +51,12 @@ class CartController extends Controller
      */
     public function destroy(Cart $cart)
     {
-        //
+        $cart->delete();
+        return (new CartResource($cart))->additional(["message"=>"Producto eliminado del carrito con éxito."]);
+    }
+
+    public function userCart($user_id){
+        $cart = Cart::where("user_id" , $user_id)->get();
+        return CartResource::collection($cart);
     }
 }

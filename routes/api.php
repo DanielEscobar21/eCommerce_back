@@ -3,8 +3,8 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\CardController;
+use App\Http\Controllers\CartController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -29,5 +29,7 @@ Route::get('/products-on-stock', [ProductController::class, 'listOnStockProducts
 Route::get('/products-by-category/{category_id}', [ProductController::class, 'productByCategory']);
 Route::apiResource('orders', OrderController::class);
 Route::apiResource('cards', CardController::class);
-Route::get('/card_by_user/{user_id}', [CardController::class, 'cardByUser']);
+Route::apiResource('carts', CartController::class);
+Route::get('/card-by-user/{user_id}', [CardController::class, 'cardByUser']);
 Route::post('/products-search', [ProductController::class, 'searchProduct']);
+Route::get('/user-cart/{user_id}', [CartController::class, 'userCart']);
