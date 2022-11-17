@@ -20,7 +20,8 @@ class CartResource extends JsonResource
             'id'=> $this->id,
             'user_id'=> $this->user_id,
             'product_id'=> $this->product_id,
-            'amount'=> $this->amount,
+            'quantity'=> $this->quantity,
+            'amount'=> (Product::select('price')->where('id', $this->product_id)->first()->price)*$this->quantity,
             'created_at' => $this->created_at->format('d-m-Y'),
             'updated_at' => $this->updated_at->format('d-m-Y')
         ];

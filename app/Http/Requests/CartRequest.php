@@ -24,9 +24,9 @@ class CartRequest extends FormRequest
     public function rules()
     {
         return [
-            'amount' => 'bail|required',
-            'product_id' => 'bail|required',
-            'user_id' => 'bail|required',
+            'quantity' => 'required',
+            'product_id' => 'required',
+            'user_id' => 'required',
         ];
     }
 }
