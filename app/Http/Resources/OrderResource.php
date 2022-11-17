@@ -5,6 +5,7 @@ namespace App\Http\Resources;
 use App\Models\Category;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Str;
+use App\Models\Cart;
 
 class OrderResource extends JsonResource
 {
@@ -19,9 +20,9 @@ class OrderResource extends JsonResource
         return [
             'id'=> $this->id,
             'order_number'=> $this->order_number,
-            'product_id'=> $this->product_id,
+            'cart_id'=> $this->cart_id,
+            'cart'=> new CartResource(Cart::where("id", $this->cart_id)->first()),
             'user_id'=> $this->user_id,
-            'quantity' => $this->quantity,
             'total_price' => $this->total_price,
             'status' => $this->status,
             'created_at' => $this->created_at->format('d-m-Y'),

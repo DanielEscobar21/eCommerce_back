@@ -28,6 +28,8 @@ Route::apiResource('products', ProductController::class);
 Route::get('/products-on-stock', [ProductController::class, 'listOnStockProducts']);
 Route::get('/products-by-category/{category_id}', [ProductController::class, 'productByCategory']);
 Route::apiResource('orders', OrderController::class);
+Route::get('/all-orders-by-order-number', [OrderController::class, 'getAllFullOrderByOrderNumber']);
+Route::get('/order-by-order-number/{order_number}', [OrderController::class, 'getFullOrderByOrderNumber']);
 Route::apiResource('cards', CardController::class);
 Route::apiResource('carts', CartController::class);
 Route::get('/card-by-user/{user_id}', [CardController::class, 'cardByUser']);
