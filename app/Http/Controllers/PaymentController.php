@@ -44,6 +44,6 @@ class PaymentController extends Controller
      */
     public function show(Payment $payment)
     {
-        return new PaymentResource($cart);
+        return new PaymentResource($payment);
     }
 }
