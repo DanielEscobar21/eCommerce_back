@@ -18,7 +18,8 @@ class PaymentResource extends JsonResource
     {
         return [
             'order_number' => $this->order_number,
-            'card_id' => $this->card_id
+            'card_id' => $this->card_id,
+            'user_id' => $this->user_id
         ];
     }
 

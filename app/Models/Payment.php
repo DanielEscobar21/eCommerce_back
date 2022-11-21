@@ -10,7 +10,6 @@ class Payment extends Model
     protected $fillable = [
         'order_number',
         'card_id',
-        'cards',
-        'amount'
+        'user_id'
     ];
 }

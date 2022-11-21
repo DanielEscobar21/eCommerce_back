@@ -13,6 +13,8 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         $cart = Cart::where('id', $request["cart_id"])->first();
+        $cart->active = false;
+        $cart->save();
         $product = Product::where('id', $cart->product_id)->first();
         $data = [
             'order_number' => $request["order_number"],

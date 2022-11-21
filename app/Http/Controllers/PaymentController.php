@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\PaymentResource;
+use App\Models\Cart;
+use App\Models\Order;
 use App\Models\Payment;
 use Illuminate\Http\Request;
 
@@ -15,17 +17,7 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        return PaymentResource::collection(Payment::all()); //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return PaymentResource::collection(Payment::all());
     }
 
     /**
@@ -36,7 +28,12 @@ class PaymentController extends Controller
      */
     public function store(Request $request)
     {
-        return (new PaymentResource(Payment::create($request->all())))->additional(["message"=>"Pago registrado con Ã©xito."]); //
+        $orders = Order::where(["order_number"=>$request["order_number"]])->get();
+        foreach ($orders as $order) {
+            $order->status = "PAGADO.";
+            $order->save();
+        }
+        return (new PaymentResource(Payment::create($request->all())))->additional(["message"=>"Pago registrado con Éxito."]);
     }
 
     /**
@@ -47,40 +44,6 @@ class PaymentController extends Controller
      */
     public function show(Payment $payment)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Payment  $payment
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Payment $payment)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Payment  $payment
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Payment $payment)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Payment  $payment
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Payment $payment)
-    {
-        //
+        return new PaymentResource($cart);
     }
 }
